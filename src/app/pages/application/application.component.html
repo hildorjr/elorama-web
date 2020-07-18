@@ -1,0 +1,87 @@
+<div class="sidebar has-background-light">
+  <article class="media user">
+    <figure class="media-left">
+      <p class="image is-48x48">
+        <img class="is-rounded" [src]="user.image">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ user.name }}</strong>
+          <br>
+          <small>{{ user.email }}</small>
+        </p>
+      </div>
+    </div>
+    <div class="media-right">
+      <a class="has-text-dark"
+        [swal]="logoutSwal"
+        (confirm)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </div>
+  </article>
+  <hr>
+  <div class="menu-container">
+    <aside class="menu">
+      <p class="menu-label">
+        Notes
+      </p>
+      <ul class="menu-list">
+        <li *ngFor="let note of notes">
+          <a (click)="selectNote(note)"
+            [class]="{ 'is-active': selectedNote.id === note.id }">
+            {{ note.title }}
+            <i [swal]="deleteSwal"
+              (confirm)="deleteNote(note)"
+              *ngIf="selectedNote.id === note.id"
+              class="fas fa-trash is-pulled-right"></i>
+          </a>
+        </li>
+        <li>
+          <hr>
+          <a (click)="newNote()" class="has-text-centered">
+            <i class="fas fa-plus"></i>
+            New Note
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</div>
+<div class="current-note">
+  <div class="centered-message has-text-centered" *ngIf="!selectedNote.id">
+    <i class="far fa-folder-open"></i>
+    <p>Select one of your notes or <a (click)="newNote()">create a new one.</a></p>
+  </div>
+  <div class="container" *ngIf="selectedNote.id">
+    <div>
+      <h2 class="title is-3"
+        *ngIf="!edit.title.toggle"
+        (click)="editTitle()">
+        {{ selectedNote.title }}
+      </h2>
+      <input #titleInput
+        type="text"
+        class="input input-edit-on-click title is-3"
+        *ngIf="edit.title.toggle"
+        [(ngModel)]="edit.title.newValue"
+        (blur)="saveTitle()"
+        (keyup.enter)="saveTitle()">
+    </div>
+    <br>
+    <markdown class="content"
+      *ngIf="!edit.content.toggle"
+      (click)="editContent()"
+      [data]="selectedNote.content">
+    </markdown>
+    <textarea #contentInput
+      class="textarea input-edit-on-click content"
+      *ngIf="edit.content.toggle"
+      [(ngModel)]="edit.content.newValue"
+      (blur)="saveContent()"
+      (keydown)="saveContent($event)">
+    </textarea>
+  </div>
+</div>

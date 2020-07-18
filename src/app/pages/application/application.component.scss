@@ -1,0 +1,58 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 300px;
+  padding: 20px;
+  hr {
+    background-color: #e5e5e5;
+  }
+  .menu-container {
+    overflow-y: scroll;
+    max-height: 80%;
+  }
+  .menu-list a {
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    &.is-active {
+      background-color: #e5e5e5;
+      color: black;
+      font-weight: bold;
+    }
+    &:hover {
+      background-color: #e5e5e5;
+      .fas {
+        color: #666;
+      }
+    }
+    .fas {
+      color: #aaa;
+      margin-right: 5px;
+    }
+  }
+}
+.current-note {
+  padding: 20px;
+  height: 100vh;
+  margin-left: 300px;
+  overflow-y: scroll;
+  position: relative;
+  .centered-message {
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .content {
+    height: 80vh;
+  }
+}
+.far {
+  font-size: 150px;
+  display: block;
+  margin-bottom: 10px;
+  color: #eee;
+}

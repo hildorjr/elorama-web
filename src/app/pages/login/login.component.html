@@ -1,0 +1,48 @@
+<section class="hero is-link is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-12-mobile is-8-tablet is-5-desktop">
+          <div class="box px-6 py-6">
+            <h1 class="title is-2 has-text-black">
+              Login
+            </h1>
+            <br>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control">
+                  <input class="input" type="email" formControlName="email">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                  <input class="input" type="password" formControlName="password">
+                </div>
+              </div>
+              <br>
+              <div class="has-text-centered">
+                <div class="field">
+                  <div class="control">
+                    <button type="submit"
+                      class="button is-link is-rounded is-fullwidth"
+                      [class]="{ 'is-loading': loading }"
+                      [disabled]="!loginForm.valid || loading">
+                      Enter
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <br>
+            <hr>
+            <div class="has-text-centered">
+              <a href="/register">I don't have an account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
