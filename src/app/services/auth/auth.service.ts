@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+
+import { environment } from 'src/environments/environment';
+import { AlertService } from '../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ export class AuthService {
 
   public constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService,
   ) { }
 
   public login(loginData: any): Observable<any> {
@@ -25,6 +28,7 @@ export class AuthService {
   public logout(): void {
     localStorage.clear();
     this.router.navigateByUrl('/login');
+    this.alertService.openToast('success', 'SignedOut');
   }
 
   public setAuthToken(token: string): any {

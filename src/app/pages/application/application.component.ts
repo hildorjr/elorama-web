@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Note } from '../../models/note.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
+import { Note } from '../../models/note.model';
 import { NoteService } from '../../services/note/note.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-application',
@@ -10,34 +13,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./application.component.scss']
 })
 export class ApplicationComponent implements OnInit {
-
-  public deleteSwal = {
-    title: 'Delete note?',
-    text: 'This action cannot be reverted.',
-    showCancelButton: true,
-    buttonsStyling: false,
-    focusCancel: true,
-    customClass: {
-      actions: 'buttons',
-      confirmButton: 'button is-danger is-light',
-      cancelButton: 'button is-light',
-    },
-    confirmButtonText: 'Yes, delete'
-  };
-
-  public logoutSwal = {
-    title: 'Exit',
-    text: 'Are you sure you want to logout and exit?',
-    showCancelButton: true,
-    buttonsStyling: false,
-    focusCancel: true,
-    customClass: {
-      actions: 'buttons',
-      confirmButton: 'button is-danger is-light',
-      cancelButton: 'button is-light',
-    },
-    confirmButtonText: 'Yes, exit'
-  };
 
   @ViewChild('titleInput') titleInputElement: ElementRef;
   @ViewChild('contentInput') contentInputElement: ElementRef;
@@ -72,6 +47,8 @@ export class ApplicationComponent implements OnInit {
     private router: Router,
     private noteService: NoteService,
     private authService: AuthService,
+    private alertService: AlertService,
+    private translate: TranslateService,
   ) { }
 
   public ngOnInit(): void {
@@ -113,16 +90,6 @@ export class ApplicationComponent implements OnInit {
       title: '',
       content: '',
     };
-  }
-
-  public deleteNote(note: Note): void {
-    this.noteService.deleteNote(this.selectedNote).subscribe(() => {
-      console.log('Note deleted');
-      this.notes.splice(this.notes.findIndex(x => x.id === note.id), 1);
-      if (this.selectedNote.id == note.id) {
-        this.resetSelectedNote();
-      }
-    });
   }
 
   public checkUrlForSelectedNote(): void {
@@ -179,18 +146,48 @@ export class ApplicationComponent implements OnInit {
   }
 
   public newNote(): void {
-    const newNote: Note = {
-      title: 'Here is your new note',
-      content: 'You can edit this from anywhere at anytime.'
-    };
-    this.noteService.createNote(newNote).subscribe((note: Note) => {
-      this.selectedNote = note;
-      this.notes.push(note);
+    const noteTexts: string[] = [
+      'newNoteTitle',
+      'newNoteContent'
+    ];
+    this.translate.get(noteTexts).subscribe((texts: any) => {
+      const newNote: Note = {
+        title: texts[noteTexts[0]],
+        content: texts[noteTexts[1]],
+      };
+      this.noteService.createNote(newNote).subscribe((note: Note) => {
+        this.selectedNote = note;
+        this.notes.push(note);
+      });
     });
   }
 
+  public deleteNote(note: Note): void {
+    this.alertService.openDangerConfirmDialog(
+      'DeleteNote?',
+      'ThisActionCannotBeReverted',
+      'Yes,delete',
+      () => {
+        this.noteService.deleteNote(this.selectedNote).subscribe(() => {
+          console.log('Note deleted');
+          this.notes.splice(this.notes.findIndex(x => x.id === note.id), 1);
+          if (this.selectedNote.id === note.id) {
+            this.resetSelectedNote();
+          }
+        });
+      }
+    );
+  }
+
   public logout(): void {
-    this.authService.logout();
+    this.alertService.openDangerConfirmDialog(
+      'Exit',
+      'AreYouSureYouWantToLogoutAndExit?',
+      'Yes,exit',
+      () => {
+        this.authService.logout();
+      }
+    );
   }
 
 }

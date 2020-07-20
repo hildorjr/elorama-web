@@ -7,17 +7,15 @@
     </figure>
     <div class="media-content">
       <div class="content">
+        <h5>{{ user.name }}</h5>
         <p>
-          <strong>{{ user.name }}</strong>
-          <br>
           <small>{{ user.email }}</small>
         </p>
       </div>
     </div>
     <div class="media-right">
       <a class="has-text-dark"
-        [swal]="logoutSwal"
-        (confirm)="logout()">
+        (click)="logout()">
         <i class="fas fa-sign-out-alt"></i>
       </a>
     </div>
@@ -25,25 +23,24 @@
   <hr>
   <div class="menu-container">
     <aside class="menu">
-      <p class="menu-label">
-        Notes
+      <p class="menu-label" *ngIf="notes.length > 0">
+        {{ 'Notes' | translate }}
       </p>
       <ul class="menu-list">
         <li *ngFor="let note of notes">
           <a (click)="selectNote(note)"
             [class]="{ 'is-active': selectedNote.id === note.id }">
             {{ note.title }}
-            <i [swal]="deleteSwal"
-              (confirm)="deleteNote(note)"
+            <i (click)="deleteNote(note)"
               *ngIf="selectedNote.id === note.id"
               class="fas fa-trash is-pulled-right"></i>
           </a>
         </li>
         <li>
-          <hr>
+          <hr *ngIf="notes.length > 0">
           <a (click)="newNote()" class="has-text-centered">
             <i class="fas fa-plus"></i>
-            New Note
+            {{ 'NewNote' | translate }}
           </a>
         </li>
       </ul>
@@ -53,7 +50,7 @@
 <div class="current-note">
   <div class="centered-message has-text-centered" *ngIf="!selectedNote.id">
     <i class="far fa-folder-open"></i>
-    <p>Select one of your notes or <a (click)="newNote()">create a new one.</a></p>
+    <p>{{ 'SelectOneOfYourNotesOr' | translate }} <a (click)="newNote()">{{ 'createANewOne' | translate }}.</a></p>
   </div>
   <div class="container" *ngIf="selectedNote.id">
     <div>

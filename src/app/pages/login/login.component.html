@@ -5,7 +5,7 @@
         <div class="column is-12-mobile is-8-tablet is-5-desktop">
           <div class="box px-6 py-6">
             <h1 class="title is-2 has-text-black">
-              Login
+              {{ 'Login' | translate }}
             </h1>
             <br>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div class="field">
-                <label class="label">Password</label>
+                <label class="label">{{ 'Password' | translate }}</label>
                 <div class="control">
                   <input class="input" type="password" formControlName="password">
                 </div>
@@ -29,7 +29,7 @@
                       class="button is-link is-rounded is-fullwidth"
                       [class]="{ 'is-loading': loading }"
                       [disabled]="!loginForm.valid || loading">
-                      Enter
+                      {{ 'Login' | translate }}
                     </button>
                   </div>
                 </div>
@@ -38,7 +38,7 @@
             <br>
             <hr>
             <div class="has-text-centered">
-              <a href="/register">I don't have an account</a>
+              <a href="/register">{{ 'IDontHaveAnAccount' | translate }}</a>
             </div>
           </div>
         </div>

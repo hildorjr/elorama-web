@@ -12,6 +12,11 @@
     overflow-y: scroll;
     max-height: 80%;
   }
+  .user {
+    h5 {
+      margin-bottom: 0;
+    }
+  }
   .menu-list a {
     margin-bottom: 10px;
     border-radius: 20px;
@@ -48,6 +53,7 @@
   }
   .content {
     height: 80vh;
+    display: block;
   }
 }
 .far {

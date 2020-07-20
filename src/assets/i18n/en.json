@@ -1,0 +1,22 @@
+{
+  "Login": "Login",
+  "Password": "Password",
+  "IDontHaveAnAccount": "I don't have an account",
+  "Register": "Register",
+  "Name": "Name",
+  "IAlreadyHaveAnAccount": "I already have an account",
+  "SignedOut": "Signed out",
+  "Notes": "Notes",
+  "NewNote": "New Note",
+  "SelectOneOfYourNotesOr": "Select one of your notes or",
+  "createANewOne": "create a new one",
+  "DeleteNote?": "Delete note?",
+  "ThisActionCannotBeReverted": "This action cannot be reverted.",
+  "Yes,delete": "Yes, delete",
+  "Exit": "Exit",
+  "AreYouSureYouWantToLogoutAndExit?": "Are you sure you want to logout and exit?",
+  "Yes,exit": "Yes, exit",
+  "newNoteTitle": "New note",
+  "newNoteContent": "You can edit this from anywhere at anytime.",
+  "Cancel": "Cancel"
+}

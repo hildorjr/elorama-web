@@ -1,0 +1,22 @@
+{
+  "Login": "Entrar",
+  "Password": "Senha",
+  "IDontHaveAnAccount": "Eu não tenho uma conta",
+  "Register": "Cadastrar",
+  "Name": "Nome",
+  "IAlreadyHaveAnAccount": "Eu já tenho uma conta",
+  "SignedOut": "Deslogado",
+  "Notes": "Anotações",
+  "NewNote": "Nova Anotação",
+  "SelectOneOfYourNotesOr": "Selecione uma das suas anotações ou",
+  "createANewOne": "crie uma nova",
+  "DeleteNote?": "Excluir anotação?",
+  "ThisActionCannotBeReverted": "Esta ação não poderá ser desfeita.",
+  "Yes,delete": "Sim, excluir",
+  "Exit": "Sair",
+  "AreYouSureYouWantToLogoutAndExit?": "Você tem certeza que quer deslogar e sair?",
+  "Yes,exit": "Sim, sair",
+  "newNoteTitle": "Nova anotação",
+  "newNoteContent": "Você pode edita-la de qualquer lugar a qualquer momento.",
+  "Cancel": "Cancelar"
+}
