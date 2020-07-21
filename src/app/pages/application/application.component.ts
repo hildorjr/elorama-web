@@ -42,6 +42,8 @@ export class ApplicationComponent implements OnInit {
 
   public notes: Note[] = [];
 
+  public sidebarToggle = true;
+
   public constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -82,6 +84,7 @@ export class ApplicationComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+    this.toggleSidebar(false);
   }
 
   public resetSelectedNote(): void {
@@ -188,6 +191,14 @@ export class ApplicationComponent implements OnInit {
         this.authService.logout();
       }
     );
+  }
+
+  public toggleSidebar(bool?: boolean): void {
+    if (bool) {
+      this.sidebarToggle = bool;
+    } else {
+      this.sidebarToggle = !this.sidebarToggle;
+    }
   }
 
 }

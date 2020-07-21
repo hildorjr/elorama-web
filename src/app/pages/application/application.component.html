@@ -1,4 +1,9 @@
-<div class="sidebar has-background-light">
+<div class="sidebar has-background-light" [class]="{ 'hidden': !sidebarToggle }">
+  <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
   <article class="media user">
     <figure class="media-left">
       <p class="image is-48x48">
