@@ -12,9 +12,9 @@ export class RegisterComponent implements OnInit {
 
   public loading: boolean;
   public registerForm: FormGroup = new FormGroup({
-    name: new FormControl('Hildor Júnior', [Validators.required]),
-    email: new FormControl('hildorjunior@test.com', [Validators.required, Validators.email]),
-    password: new FormControl('123456', Validators.required),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
   });
 
   public constructor(
