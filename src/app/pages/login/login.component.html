@@ -1,4 +1,4 @@
-<section class="hero is-link is-fullheight">
+<section class="hero is-primary is-fullheight">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
@@ -7,18 +7,26 @@
             <h1 class="title is-2 has-text-black">
               {{ 'Login' | translate }}
             </h1>
-            <br>
+            <h2 class="subtitle has-text-black">
+              {{ 'loginSubtitle' | translate }}
+            </h2>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
               <div class="field">
                 <label class="label">E-mail</label>
-                <div class="control">
+                <div class="control has-icons-left">
                   <input class="input" type="email" formControlName="email">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
                 </div>
               </div>
               <div class="field">
                 <label class="label">{{ 'Password' | translate }}</label>
-                <div class="control">
+                <div class="control has-icons-left">
                   <input class="input" type="password" formControlName="password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
                 </div>
               </div>
               <br>
@@ -26,7 +34,7 @@
                 <div class="field">
                   <div class="control">
                     <button type="submit"
-                      class="button is-link is-rounded is-fullwidth"
+                      class="button is-primary is-rounded is-fullwidth"
                       [class]="{ 'is-loading': loading }"
                       [disabled]="!loginForm.valid || loading">
                       {{ 'Login' | translate }}

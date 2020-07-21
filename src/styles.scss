@@ -1,7 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;800&family=Roboto:wght@400;500;600&display=swap');
+
+$primary: #8819bb;
+
+@import "bulma/bulma.sass";
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
 
 h1, h2, h3, h4, h5, h6, .title {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Roboto Slab', serif;
+}
+
+a {
+  color: $dark;
+  font-weight: 500;
+  border-radius: 20px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+}
+
+label {
+  font-weight: normal !important;
+  margin-bottom: 2px !important;
 }
 
 .input-edit-on-click {

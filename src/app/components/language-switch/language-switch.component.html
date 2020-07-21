@@ -1,0 +1,6 @@
+<div class="lang-switch">
+  <button *ngFor="let lang of langs"
+    (click)="setLang(lang.lang)"
+    [style.background]="'url(' + lang.flag + ')'">
+  </button>
+</div>

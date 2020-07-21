@@ -1,0 +1,22 @@
+.lang-switch {
+  position: fixed;
+  right: 0;
+  top: 150px;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 4px 0 0 4px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  button {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    display: block;
+    margin-bottom: 10px;
+    background-size: contain;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

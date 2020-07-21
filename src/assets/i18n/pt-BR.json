@@ -18,5 +18,12 @@
   "Yes,exit": "Sim, sair",
   "newNoteTitle": "Nova anotação",
   "newNoteContent": "Você pode edita-la de qualquer lugar a qualquer momento.",
-  "Cancel": "Cancelar"
+  "Cancel": "Cancelar",
+  "emailInputHelp": "Você precisa ter acesso a este e-mail para confirmar sua conta.",
+  "passwordInputHelp": "Sua senha será criptografada e armazenada em um local seguro.",
+  "loginSubtitle": "Preencha os campos corretamente para acessar sua conta.",
+  "registerSubtitle": "Preencha os campos corretamente para cadastrar sua conta.",
+  "IAgreeToThe": "Eu aceito os",
+  "termsAndConditions": "termos e condições",
+  "termsFile": "termos.txt"
 }

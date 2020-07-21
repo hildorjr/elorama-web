@@ -18,5 +18,12 @@
   "Yes,exit": "Yes, exit",
   "newNoteTitle": "New note",
   "newNoteContent": "You can edit this from anywhere at anytime.",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "emailInputHelp": "You must have access to this e-mail to confirm your account.",
+  "passwordInputHelp": "Your password will be encrypted and stored safely.",
+  "loginSubtitle": "Fill the fields correctly to access your account.",
+  "registerSubtitle": "Fill the fields correctly to create your account.",
+  "IAgreeToThe": "I agree to the",
+  "termsAndConditions": "terms and conditions",
+  "termsFile": "terms.txt"
 }

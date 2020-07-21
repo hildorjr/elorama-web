@@ -12,6 +12,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { ApplicationComponent } from './pages/application/application.component';
+import { LanguageSwitchComponent } from './components/language-switch/language-switch.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -22,7 +23,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    LanguageSwitchComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     MarkdownModule.forRoot(),
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
+      defaultLanguage: 'en-US',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
