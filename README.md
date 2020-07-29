@@ -1,6 +1,7 @@
+# Salvae Web
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/87f8d111-51b2-48b9-99aa-2af34128fa8f/deploy-status)](https://app.netlify.com/sites/salvae/deploys)
 
-# Salvae Web
 This is the repo for the Salvae website, a project created by Hildor Júnior [@hildorjr](https://github.com/hildorjr).
 
 ## Commands
