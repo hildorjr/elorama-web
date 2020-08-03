@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://salvae-api.herokuapp.com'
+  apiUrl: 'http://localhost'
 };
 
 /*
