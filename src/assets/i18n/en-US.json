@@ -1,8 +1,30 @@
 {
+  "home": {
+    "subtitle": "A safe place for your notes",
+    "secureSection": {
+      "title": "Secure storage",
+      "text": "All your notes are encrypted and stored in a secure environment."
+    },
+    "devicesSection": {
+      "title": "Access from everywhere",
+      "text": "You can open and edit your notes from your desktop, notebook, tablet or phone."
+    },
+    "markdownSection": {
+      "title": "Style your notes",
+      "text": "You can use Markdown to make all your notes beautiful."
+    },
+    "downloadSection": {
+      "title": "Create your first note for free"
+    }
+  },
+  "madeWith": "Made with",
+  "by": "by",
+  "loginError": "Invalid email or password",
+  "registerError": "There was an error while trying to register",
   "Login": "Login",
   "Password": "Password",
   "IDontHaveAnAccount": "I don't have an account",
-  "Register": "Register",
+  "Register": "Create my account",
   "Name": "Name",
   "IAlreadyHaveAnAccount": "I already have an account",
   "SignedOut": "Signed out",

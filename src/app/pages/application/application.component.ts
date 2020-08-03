@@ -149,19 +149,13 @@ export class ApplicationComponent implements OnInit {
   }
 
   public newNote(): void {
-    const noteTexts: string[] = [
-      'newNoteTitle',
-      'newNoteContent'
-    ];
-    this.translate.get(noteTexts).subscribe((texts: any) => {
-      const newNote: Note = {
-        title: texts[noteTexts[0]],
-        content: texts[noteTexts[1]],
-      };
-      this.noteService.createNote(newNote).subscribe((note: Note) => {
-        this.selectedNote = note;
-        this.notes.push(note);
-      });
+    const newNote: Note = {
+      title: this.translate.instant('newNoteTitle'),
+      content: this.translate.instant('newNoteContent'),
+    };
+    this.noteService.createNote(newNote).subscribe((note: Note) => {
+      this.selectedNote = note;
+      this.notes.push(note);
     });
   }
 

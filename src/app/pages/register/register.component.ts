@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -20,8 +21,9 @@ export class RegisterComponent implements OnInit {
 
   public constructor(
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private alertService: AlertService,
+    ) { }
 
   public ngOnInit(): void {
   }
@@ -34,6 +36,9 @@ export class RegisterComponent implements OnInit {
         this.authService.setAuthToken(data.token);
         this.authService.setUser(data.user);
         this.router.navigateByUrl('/app');
+      }, (error: any) => {
+        this.loading = false;
+        this.alertService.openToast('error', 'registerError');
       });
   }
 

@@ -35,9 +35,8 @@ export class AlertService {
 
   public openToast(icon: string, title: string): void {
     const translate = this.injector.get(TranslateService);
-    translate.get(title).subscribe(text => {
-      this.toast.fire({ icon, text });
-    });
+    title = translate.instant(title);
+    this.toast.fire({ icon, title });
   }
 
   public openDangerConfirmDialog(title: string, text: string, confirmButtonText: string, confirmFunction: () => void): void {

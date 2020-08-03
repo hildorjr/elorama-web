@@ -1,8 +1,30 @@
 {
+  "home": {
+    "subtitle": "Um lugar seguro para sua anotações",
+    "secureSection": {
+      "title": "Segurança máxima",
+      "text": "Todas suas anotações são encriptografadas e armazenadas em um local seguro."
+    },
+    "devicesSection": {
+      "title": "Acesse de qualquer lugar",
+      "text": "Você pode editar suas anotações do desktop, notebook, tablet ou celular."
+    },
+    "markdownSection": {
+      "title": "Estilize sua anotações",
+      "text": "Você pode usar Markdown para deixar todas suas anotações lindas."
+    },
+    "downloadSection": {
+      "title": "Crie sua primeira anotação de graça"
+    }
+  },
+  "madeWith": "Feito com",
+  "by": "por",
+  "loginError": "Dados inválidos",
+  "registerError": "Houve um erro ao criar a conta",
   "Login": "Entrar",
   "Password": "Senha",
   "IDontHaveAnAccount": "Eu não tenho uma conta",
-  "Register": "Cadastrar",
+  "Register": "Criar minha conta",
   "Name": "Nome",
   "IAlreadyHaveAnAccount": "Eu já tenho uma conta",
   "SignedOut": "Deslogado",
