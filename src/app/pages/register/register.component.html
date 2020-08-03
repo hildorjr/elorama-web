@@ -23,7 +23,7 @@
               <div class="field">
                 <label class="label">E-mail</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="email" formControlName="email">
+                  <input class="input" type="email" formControlName="email" name="new-email">
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                   </span>
@@ -33,7 +33,7 @@
               <div class="field">
                 <label class="label">{{ 'Password' | translate }}</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="password" formControlName="password">
+                  <input class="input" type="password" formControlName="password" name="new-password">
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                   </span>
@@ -43,7 +43,7 @@
               <div class="field">
                 <label class="checkbox">
                   <input type="checkbox" formControlName="terms">
-                  {{ 'IAgreeToThe' | translate }} <a [href]="'assets/txt/' + ('termsFile' | translate)" target="_blank">terms and conditions</a>
+                  {{ 'IAgreeToThe' | translate }} <a [href]="'assets/txt/' + ('termsFile' | translate)" target="_blank">{{ 'termsAndConditions' | translate }}</a>
                 </label>
               </div>
               <br>
