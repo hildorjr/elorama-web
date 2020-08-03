@@ -73,6 +73,8 @@ export class ApplicationComponent implements OnInit {
     this.noteService.getNotes().subscribe((data: any) => {
       this.notes = data;
       this.checkUrlForSelectedNote();
+    }, (error: any) => {
+      this.alertService.openToast('error', 'getError');
     });
   }
 
@@ -121,6 +123,8 @@ export class ApplicationComponent implements OnInit {
       this.selectedNote.title = t.newValue;
       this.noteService.saveNote(this.selectedNote).subscribe(() => {
         console.log('Title saved');
+      }, (error: any) => {
+        this.alertService.openToast('error', 'saveError');
       });
     }
   }
@@ -143,6 +147,8 @@ export class ApplicationComponent implements OnInit {
         this.selectedNote.content = c.newValue;
         this.noteService.saveNote(this.selectedNote).subscribe(() => {
           console.log('Title saved');
+        }, (error: any) => {
+          this.alertService.openToast('error', 'saveError');
         });
       }
     }
@@ -156,6 +162,8 @@ export class ApplicationComponent implements OnInit {
     this.noteService.createNote(newNote).subscribe((note: Note) => {
       this.selectedNote = note;
       this.notes.push(note);
+    }, (error: any) => {
+      this.alertService.openToast('error', 'createError');
     });
   }
 
@@ -171,6 +179,8 @@ export class ApplicationComponent implements OnInit {
           if (this.selectedNote.id === note.id) {
             this.resetSelectedNote();
           }
+        }, (error: any) => {
+          this.alertService.openToast('error', 'deleteError');
         });
       }
     );
