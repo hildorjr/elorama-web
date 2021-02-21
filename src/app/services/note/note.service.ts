@@ -15,7 +15,7 @@ export class NoteService {
     return this.http.get(`${environment.apiUrl}/notes`);
   }
 
-  public getNote(noteId: id): Observable<any> {
+  public getNote(noteId: number): Observable<any> {
     return this.http.get(`${environment.apiUrl}/notes/${noteId}`);
   }
 
