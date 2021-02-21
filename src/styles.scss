@@ -12,6 +12,10 @@ h1, h2, h3, h4, h5, h6, .title {
   font-family: 'Roboto Slab', serif;
 }
 
+html {
+  overflow-y: auto;
+}
+
 a {
   color: $dark;
   font-weight: 500;

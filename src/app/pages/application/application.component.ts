@@ -66,7 +66,7 @@ export class ApplicationComponent implements OnInit {
     const user: any = this.authService.getUser();
     this.user.name = user.name;
     this.user.email = user.email;
-    this.user.image = `https://api.adorable.io/avatars/285/${this.user.email}`;
+    this.user.image = `https://api.hello-avatar.com/adorables/${this.user.email}`;
   }
 
   public getNotes(): void {
