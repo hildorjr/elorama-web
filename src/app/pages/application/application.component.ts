@@ -79,7 +79,12 @@ export class ApplicationComponent implements OnInit {
   }
 
   public selectNote(note: Note): void {
-    this.selectedNote = note;
+    this.noteService.getNote(note.id).subscribe((data: any) => {
+      this.selectedNote = data;
+      this.notes[this.notes.findIndex(x => x.id === note.id)] = data;
+    }, (error: any) => {
+      this.alertService.openToast('error', 'getError');
+    });
     this.router.navigate([], {
       queryParams: {
         note: note.id

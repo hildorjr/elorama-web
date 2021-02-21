@@ -15,6 +15,10 @@ export class NoteService {
     return this.http.get(`${environment.apiUrl}/notes`);
   }
 
+  public getNote(noteId: id): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/notes/${noteId}`);
+  }
+
   public saveNote(noteData: Note): Observable<any> {
     return this.http.put(`${environment.apiUrl}/notes/${noteData.id}`, noteData);
   }
