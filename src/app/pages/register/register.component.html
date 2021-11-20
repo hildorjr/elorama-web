@@ -3,6 +3,16 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-12-mobile is-8-tablet is-5-desktop">
+          <div class="has-text-centered mb-6">
+            <a [routerLink]="['/']">
+              <h1 class="title is-1">
+                Salvae
+              </h1>
+              <h2 class="subtitle">
+                {{ 'home.subtitle' | translate }}
+              </h2>
+            </a>
+          </div>
           <div class="box px-6 py-6">
             <h1 class="title is-2 has-text-black">
               {{ 'Register' | translate }}
@@ -51,7 +61,7 @@
                 <div class="field">
                   <div class="control">
                     <button type="submit"
-                      class="button is-primary is-rounded is-fullwidth"
+                      class="button is-primary is-medium is-fullwidth"
                       [class]="{ 'is-loading': loading }"
                       [disabled]="!registerForm.valid || loading">
                       {{ 'Register' | translate }}
@@ -60,11 +70,10 @@
                 </div>
               </div>
             </form>
-            <br>
-            <hr>
-            <div class="has-text-centered">
-              <a href="/login">{{ 'IAlreadyHaveAnAccount' | translate }}</a>
+            <div class="has-text-centered mt-6 mb-5">
+              <a [routerLink]="['/login']">{{ 'IAlreadyHaveAnAccount' | translate }}</a>
             </div>
+            <app-language-switch></app-language-switch>
           </div>
         </div>
       </div>

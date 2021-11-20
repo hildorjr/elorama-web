@@ -7,11 +7,11 @@
       <h2 class="subtitle">
         {{ 'home.subtitle' | translate }}
       </h2>
-      <div class="buttons is-centered">
-        <a href="/register" class="button is-light is-large">
+      <div class="buttons mt-6 is-centered">
+        <a [routerLink]="['/register']" class="button is-primary is-inverted is-medium">
           {{ 'Register' | translate }}
         </a>
-        <a href="/login" class="button is-light is-large">
+        <a [routerLink]="['/login']" class="button is-primary is-inverted is-outlined is-medium">
           {{ 'Login' | translate }}
         </a>
       </div>
@@ -21,12 +21,15 @@
 <section class="hero is-white is-medium secure-section">
   <div class="hero-body">
     <div class="container">
-      <div class="columns">
-        <div class="column is-6">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-4">
           <h1 class="title">{{ 'home.secureSection.title' | translate }}</h1>
           <h2 class="subtitle">
             {{ 'home.secureSection.text' | translate }}
           </h2>
+        </div>
+        <div class="column is-4 is-offset-1">
+          <img src="/assets/svg/illustrations/secure.svg" [alt]="'home.secureSection.title' | translate">
         </div>
       </div>
     </div>
@@ -35,8 +38,11 @@
 <section class="hero is-light is-medium devices-section">
   <div class="hero-body">
     <div class="container">
-      <div class="columns">
-        <div class="column is-6 is-offset-6">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-4">
+          <img src="/assets/svg/illustrations/devices-1.svg" [alt]="'home.devicesSection.title' | translate">
+        </div>
+        <div class="column is-4 is-offset-1">
           <h1 class="title">{{ 'home.devicesSection.title' | translate }}</h1>
           <h2 class="subtitle">
             {{ 'home.devicesSection.text' | translate }}
@@ -52,12 +58,15 @@
 <section class="hero is-white is-medium markdown-section">
   <div class="hero-body">
     <div class="container">
-      <div class="columns">
-        <div class="column is-6">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-4">
           <h1 class="title">{{ 'home.markdownSection.title' | translate }}</h1>
           <h2 class="subtitle">
             {{ 'home.markdownSection.text' | translate }}
           </h2>
+        </div>
+        <div class="column is-4 is-offset-1">
+          <img src="/assets/svg/illustrations/mobile.svg" [alt]="'home.secureSectmarkdownSectionion.title' | translate">
         </div>
       </div>
     </div>
@@ -77,19 +86,21 @@
     </div>
   </div>
 </section> -->
-<section class="section has-background-primary has-text-centered">
+<section class="section is-medium has-background-primary has-text-centered">
   <div class="container">
-    <h1 class="title has-text-white">{{ 'home.downloadSection.title' | translate }}</h1>
-    <a href="/register" class="button is-light is-large">
+    <h1 class="title has-text-white mb-6">{{ 'home.downloadSection.title' | translate }}</h1>
+    <a [routerLink]="['/register']" class="button is-primary is-inverted is-medium">
       {{ 'Register' | translate }}
     </a>
   </div>
 </section>
 <footer class="footer">
   <div class="content has-text-centered">
-    <p>
+    <app-language-switch></app-language-switch>
+    <p class="mt-5">
       {{ 'madeWith' | translate }} <i class="fas fa-heart has-text-danger"></i> {{ 'by' | translate }} 
-      <a target="_blank" href="https://hildor.com.br">Hildor Júnior</a>.
+      <a target="_blank" href="https://unze.com.br">Unze</a>
     </p>
+    <p class="mt-5">© 2021 Unze Tecnologia LTDA - CNPJ 41.074.294/0001-83</p>
   </div>
 </footer>

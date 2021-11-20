@@ -1,13 +1,5 @@
-@keyframes movingBackground {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
 .hero-section {
-  background-color: transparent;
-  background: linear-gradient(45deg, hsl(281, 76%, 42%), hsl(281, 76%, 12%));
-  background-size: 400% 400%;
-  animation: movingBackground 15s ease infinite;
+  background-color: #8819bb;
   .title {
     font-size: 7em;
     @media screen and (max-width: 770px) {
@@ -16,25 +8,13 @@
   }
 }
 .devices-section, .secure-section, .share-section, .markdown-section {
-  background-repeat: no-repeat;
-  background-size: 350px;
-  @media screen and (max-width: 770px) {
-    background-image: none !important;
+  img {
+    height: 300px;
+    pointer-events: none;
   }
-}
-.devices-section {
-  background-image: url('/assets/svg/illustrations/devices-1.svg');
-  background-position: 10% center;
-}
-.secure-section {
-  background-image: url('/assets/svg/illustrations/secure.svg');
-  background-position: 90% center;
-}
-.markdown-section {
-  background-image: url('/assets/svg/illustrations/mobile.svg');
-  background-position: 90% center;
-}
-.share-section {
-  background-image: url('/assets/svg/illustrations/devices-2.svg');
-  background-position: 90% center;
+  @media screen and (max-width: 770px) {
+    img {
+      display: none;
+    }
+  }
 }

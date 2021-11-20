@@ -1,9 +1,12 @@
-<div class="sidebar has-background-light" [class]="{ 'hidden': !sidebarToggle }">
+<div class="mobile-navbar has-background-light" [class]="{ 'has-offset': sidebarToggle }">
   <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
   </a>
+  <p>{{ selectedNote.title }}</p>
+</div>
+<div class="sidebar has-background-light" [class]="{ 'hidden': !sidebarToggle }">
   <article class="media user">
     <figure class="media-left">
       <div class="user-image">
@@ -25,9 +28,14 @@
       </a>
     </div>
   </article>
-  <hr>
-  <div class="menu-container">
+  <div class="menu-container mt-6">
     <aside class="menu">
+      <a (click)="newNote()" class="button is-primary is-fullwidth has-text-centered mb-6">
+        <span class="icon">
+          <i class="fas fa-plus-circle"></i>
+        </span>
+        <span>{{ 'NewNote' | translate }}</span>
+      </a>
       <p class="menu-label" *ngIf="notes.length > 0">
         {{ 'Notes' | translate }}
       </p>
@@ -41,14 +49,14 @@
               class="fas fa-trash is-pulled-right"></i>
           </a>
         </li>
-        <li>
-          <hr *ngIf="notes.length > 0">
-          <a (click)="newNote()" class="has-text-centered">
-            <i class="fas fa-plus"></i>
-            {{ 'NewNote' | translate }}
-          </a>
-        </li>
       </ul>
+      <div class="menu-bottom-section mb-6 mt-6">
+        <app-language-switch></app-language-switch>
+        <p class="mt-5 has-text-centered">
+          {{ 'madeWith' | translate }} <i class="fas fa-heart has-text-danger"></i> {{ 'by' | translate }} 
+          <a target="_blank" href="https://unze.com.br">Unze</a>
+        </p>
+      </div>
     </aside>
   </div>
 </div>
