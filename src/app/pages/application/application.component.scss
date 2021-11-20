@@ -23,8 +23,20 @@ $sidebar-width: 300px;
     max-height: 80%;
   }
   .user {
+    .user-image {
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      padding-top: 6px;
+      text-align: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 25px;
+    }
     h5 {
       margin-bottom: 0;
+      margin-top: 2px;
     }
   }
   .menu-list a {
