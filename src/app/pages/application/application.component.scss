@@ -64,7 +64,6 @@ $sidebar-width: 300px;
   padding: 20px;
   height: 100vh;
   margin-left: $sidebar-width;
-  margin-bottom: 20px;
   overflow-y: scroll;
   position: relative;
   .centered-message {
@@ -75,8 +74,9 @@ $sidebar-width: 300px;
     transform: translate(-50%, -50%);
   }
   .content {
-    height: 80vh;
+    min-height: 80vh;
     display: block;
+    margin-bottom: 100px;
   }
 }
 .far {
