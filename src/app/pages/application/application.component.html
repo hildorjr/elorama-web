@@ -6,13 +6,13 @@
   </a>
   <article class="media user">
     <figure class="media-left">
-      <p class="image is-48x48">
-        <img class="is-rounded" [src]="user.image">
-      </p>
+      <div class="user-image">
+        {{ user.name.slice(0, 1) }}
+      </div>
     </figure>
     <div class="media-content">
       <div class="content">
-        <h5>{{ user.name }}</h5>
+        <h5>{{ user.name.slice(0, user.name.indexOf(' ')) }}</h5>
         <p>
           <small>{{ user.email }}</small>
         </p>
