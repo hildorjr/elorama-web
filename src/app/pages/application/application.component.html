@@ -1,97 +1,37 @@
-<div class="mobile-navbar has-background-light" [class]="{ 'has-offset': sidebarToggle }">
-  <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-  </a>
-  <p>{{ selectedNote.title }}</p>
-</div>
-<div class="sidebar has-background-light" [class]="{ 'hidden': !sidebarToggle }">
-  <article class="media user">
-    <figure class="media-left">
-      <div class="user-image">
-        {{ user.name.slice(0, 1) }}
-      </div>
-    </figure>
-    <div class="media-content">
-      <div class="content">
-        <h5>{{ user.name.slice(0, user.name.indexOf(' ')) }}</h5>
-        <p>
-          <small>{{ user.email }}</small>
-        </p>
-      </div>
-    </div>
-    <div class="media-right">
-      <a class="has-text-dark"
-        (click)="logout()">
-        <i class="fas fa-sign-out-alt"></i>
+<section class="hero is-light is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <a class="has-text-dark" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Sair
       </a>
-    </div>
-  </article>
-  <div class="menu-container mt-6">
-    <aside class="menu">
-      <a (click)="newNote()" class="button is-primary is-fullwidth has-text-centered mb-6">
-        <span class="icon">
-          <i class="fas fa-plus-circle"></i>
-        </span>
-        <span>{{ 'NewNote' | translate }}</span>
-      </a>
-      <p class="menu-label" *ngIf="notes.length > 0">
-        {{ 'Notes' | translate }}
+      <h1 class="title mt-5">
+        Bem vindo, {{ user.name.slice(0, user.name.indexOf(' ')) }}!
+      </h1>
+      <p class="subtitle">
+        Clique no módulo que deseja acessar.
       </p>
-      <ul class="menu-list">
-        <li *ngFor="let note of notes">
-          <a (click)="selectNote(note)"
-            [class]="{ 'is-active': selectedNote.id === note.id }">
-            {{ note.title }}
-            <i (click)="deleteNote(note)"
-              *ngIf="selectedNote.id === note.id"
-              class="fas fa-trash is-pulled-right"></i>
+      <div class="columns">
+        <div class="column is-3">
+          <a href="/app/notes">
+            <div class="box has-text-centered py-6">
+              <span class="icon is-large">
+                <i class="far fa-lg fa-copy"></i>
+              </span>
+              <p>Notas</p>
+            </div>
           </a>
-        </li>
-      </ul>
-      <div class="menu-bottom-section mb-6 mt-6">
-        <app-language-switch></app-language-switch>
-        <p class="mt-5 has-text-centered">
-          {{ 'madeWith' | translate }} <i class="fas fa-heart has-text-danger"></i> {{ 'by' | translate }} 
-          <a target="_blank" href="https://unze.com.br">Unze</a>
-        </p>
+        </div>
+        <div class="column is-3">
+          <a href="/app/links">
+            <div class="box has-text-centered py-6">
+              <span class="icon is-large">
+                <i class="fas fa-lg fa-link"></i>
+              </span>
+              <p>Links</p>
+            </div>
+          </a>
+        </div>
       </div>
-    </aside>
-  </div>
-</div>
-<div class="current-note has-background-white">
-  <div class="centered-message has-text-centered" *ngIf="!selectedNote.id">
-    <i class="far fa-folder-open"></i>
-    <p>{{ 'SelectOneOfYourNotesOr' | translate }} <a (click)="newNote()">{{ 'createANewOne' | translate }}.</a></p>
-  </div>
-  <div class="container" *ngIf="selectedNote.id">
-    <div>
-      <h2 class="title is-3"
-        *ngIf="!edit.title.toggle"
-        (click)="editTitle()">
-        {{ selectedNote.title }}
-      </h2>
-      <input #titleInput
-        type="text"
-        class="input input-edit-on-click title is-3"
-        *ngIf="edit.title.toggle"
-        [(ngModel)]="edit.title.newValue"
-        (blur)="saveTitle()"
-        (keyup.enter)="saveTitle()">
     </div>
-    <br>
-    <markdown class="content"
-      *ngIf="!edit.content.toggle"
-      (click)="editContent()"
-      [data]="selectedNote.content">
-    </markdown>
-    <textarea #contentInput
-      class="textarea input-edit-on-click content"
-      *ngIf="edit.content.toggle"
-      [(ngModel)]="edit.content.newValue"
-      (blur)="saveContent()"
-      (keydown)="saveContent($event)">
-    </textarea>
   </div>
-</div>
+</section>
