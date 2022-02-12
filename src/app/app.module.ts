@@ -14,10 +14,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { ApplicationComponent } from './pages/application/application.component';
-import { NotesComponent } from './pages/notes/notes.component';
+import { NotesComponent } from './pages/application/notes/notes.component';
 import { LanguageSwitchComponent } from './components/language-switch/language-switch.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LinksComponent } from './pages/links/links.component';
+import { LinksComponent } from './pages/application/links/links.component';
+import { LinkTreeComponent } from './pages/link-tree/link-tree.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -32,7 +33,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NotesComponent,
     LinksComponent,
     LanguageSwitchComponent,
-    HomeComponent
+    HomeComponent,
+    LinkTreeComponent,
   ],
   imports: [
     BrowserModule,

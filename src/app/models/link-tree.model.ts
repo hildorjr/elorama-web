@@ -4,6 +4,7 @@ export class LinkTree {
   title: string;
   description: string;
   buttonColor?: string;
+  buttonTextColor?: string;
   links?: {
     url: string;
     label: string;

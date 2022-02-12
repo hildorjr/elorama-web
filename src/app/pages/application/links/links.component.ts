@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { LinkTree } from '../../models/link-tree.model';
-import { LinkService } from '../../services/link/link.service';
+import { LinkTree } from 'src/app/models/link-tree.model';
+import { LinkService } from 'src/app/services/link/link.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
@@ -27,6 +27,7 @@ export class LinksComponent implements OnInit {
     title: '',
     description: '',
     buttonColor: '',
+    buttonTextColor: '',
     links: [],
   };
 
@@ -39,6 +40,11 @@ export class LinksComponent implements OnInit {
       toggle: false,
       newValue: '',
     },
+  };
+
+  public newLink: any = {
+    label: '',
+    url: '',
   };
 
   public links: LinkTree[] = [];
@@ -61,6 +67,10 @@ export class LinksComponent implements OnInit {
       this.getUser();
       this.getLinks();
     }
+  }
+
+  public get routeHost(): string {
+    return location.origin;
   }
 
   public getUser(): void {
@@ -100,6 +110,7 @@ export class LinksComponent implements OnInit {
       title: '',
       description: '',
       buttonColor: '',
+      buttonTextColor: '',
       links: [],
     };
   }
@@ -136,6 +147,19 @@ export class LinksComponent implements OnInit {
     }
   }
 
+  public addLink(): void {
+    this.selectedLinkTree.links.push(this.newLink);
+    this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
+      console.log('Button added saved');
+      this.newLink = {
+        label: '',
+        url: '',
+      };
+    }, (error: any) => {
+      this.alertService.openToast('error', 'saveError');
+    });
+  }
+
   public saveButtonColor(): void {
     this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
       console.log('Color saved');
@@ -153,7 +177,7 @@ export class LinksComponent implements OnInit {
     });
   }
 
-  public saveContent(event: KeyboardEvent): void {
+  public saveDescription(event: KeyboardEvent): void {
     // tslint:disable-next-line: deprecation
     if ((event?.metaKey && event?.keyCode === 13) || !event) {
       const c = this.edit.description;
@@ -169,7 +193,7 @@ export class LinksComponent implements OnInit {
     }
   }
 
-  public newLink(): void {
+  public newLinkTree(): void {
     const newLink: LinkTree = {
       title: this.translate.instant('newLinkTitle'),
       description: this.translate.instant('newLinkDescription'),
@@ -182,9 +206,25 @@ export class LinksComponent implements OnInit {
     });
   }
 
-  public deleteLink(note: LinkTree): void {
+  public deleteLink(linkIndex: number): void {
     this.alertService.openDangerConfirmDialog(
       'DeleteLink?',
+      'ThisActionCannotBeReverted',
+      'Yes,delete',
+      () => {
+        this.selectedLinkTree.links.splice(linkIndex, 1);
+        this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
+          console.log('Link deleted');
+        }, (error: any) => {
+          this.alertService.openToast('error', 'deleteError');
+        });
+      }
+    );
+  }
+
+  public deleteLinkTree(note: LinkTree): void {
+    this.alertService.openDangerConfirmDialog(
+      'DeleteLinkTree?',
       'ThisActionCannotBeReverted',
       'Yes,delete',
       () => {

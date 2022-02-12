@@ -1,0 +1,25 @@
+<div class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="centered-message has-text-centered" *ngIf="!linkTree.id">
+      <i class="far fa-folder-open"></i>
+      <p>{{ '404' | translate }}</p>
+    </div>
+    <div class="columns is-centered" *ngIf="linkTree.id">
+      <div class="column is-4 has-text-centered">
+        <h2 class="title is-3 mb-5">
+          {{ linkTree.title }}
+        </h2>
+        <p class="subtitle is-5 mb-6">
+          {{ linkTree.description }}
+        </p>
+        <a *ngFor="let link of linkTree.links"
+          [href]="link.url"
+          class="button is-medium is-fullwidth mb-5"
+          [style.backgroundColor]="linkTree.buttonColor"
+          [style.color]="linkTree.buttonTextColor">
+          {{ link.label }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

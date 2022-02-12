@@ -19,6 +19,10 @@ export class LinkService {
     return this.http.get(`${environment.apiUrl}/linkTrees/${linkId}`);
   }
 
+  public getPublicLinkTree(linkId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/links/${linkId}`);
+  }
+
   public saveLink(linkData: LinkTree): Observable<any> {
     return this.http.put(`${environment.apiUrl}/linkTrees/${linkData.id}`, linkData);
   }

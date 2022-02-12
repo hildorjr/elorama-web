@@ -5,8 +5,9 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ApplicationComponent } from './pages/application/application.component';
 import { HomeComponent } from './pages/home/home.component';
-import { NotesComponent } from './pages/notes/notes.component';
-import { LinksComponent } from './pages/links/links.component';
+import { NotesComponent } from './pages/application/notes/notes.component';
+import { LinksComponent } from './pages/application/links/links.component';
+import { LinkTreeComponent } from './pages/link-tree/link-tree.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'app/links',
     component: LinksComponent
+  },
+  {
+    path: 'links/:linkTreeId',
+    component: LinkTreeComponent,
   },
   {
     path: '**',

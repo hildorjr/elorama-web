@@ -1,0 +1,171 @@
+<div class="mobile-navbar has-background-light" [class]="{ 'has-offset': sidebarToggle }">
+  <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <p>{{ selectedLinkTree.title }}</p>
+</div>
+<div class="sidebar has-background-light" [class]="{ 'hidden': !sidebarToggle }">
+  <a routerLink="/app">
+    <i class="fas fa-chevron-left"></i> {{ 'GoBackToHome' | translate }}
+  </a>
+  <article class="media user mt-5">
+    <figure class="media-left">
+      <div class="user-image">
+        {{ user.name.slice(0, 1) }}
+      </div>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <h5>{{ user.name.slice(0, user.name.indexOf(' ')) }}</h5>
+        <p>
+          <small>{{ user.email }}</small>
+        </p>
+      </div>
+    </div>
+    <div class="media-right">
+      <a class="has-text-dark"
+        (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </div>
+  </article>
+  <div class="menu-container mt-6">
+    <aside class="menu">
+      <a (click)="newLinkTree()" class="button is-link is-fullwidth has-text-centered mb-6">
+        <span class="icon">
+          <i class="fas fa-plus-circle"></i>
+        </span>
+        <span>{{ 'NewLink' | translate }}</span>
+      </a>
+      <p class="menu-label" *ngIf="links.length > 0">
+        {{ 'Links' | translate }}
+      </p>
+      <ul class="menu-list">
+        <li *ngFor="let link of links">
+          <a (click)="selectLink(link)"
+            [class]="{ 'is-active': selectedLinkTree.id === link.id }">
+            {{ link.title }}
+            <i (click)="deleteLinkTree(link)"
+              *ngIf="selectedLinkTree.id === link.id"
+              class="fas fa-trash is-pulled-right"></i>
+          </a>
+        </li>
+      </ul>
+      <div class="menu-bottom-section mb-6 mt-6">
+        <app-language-switch></app-language-switch>
+        <p class="mt-5 has-text-centered">
+          {{ 'madeWith' | translate }} <i class="fas fa-heart has-text-danger"></i> {{ 'by' | translate }} 
+          <a target="_blank" href="https://unze.com.br">Unze</a>
+        </p>
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="current-link has-background-white">
+  <div class="centered-message has-text-centered" *ngIf="!selectedLinkTree.id">
+    <i class="far fa-folder-open"></i>
+    <p>{{ 'SelectOneOfYourLinksOr' | translate }} <a (click)="newLinkTree()">{{ 'createANewOne' | translate }}.</a></p>
+  </div>
+  <div class="columns is-multiline is-centered" *ngIf="selectedLinkTree.id">
+    <div class="column is-5 mt-6">
+      <h4 class="title is-4">Seu link público</h4>
+      <div class="field">
+        <label class="label" for="linkTreeUrl">URL para compartilhar</label>
+        <div class="control">
+          <input id="linkTreeUrl" readonly class="input" [value]="routeHost + '/links/' + selectedLinkTree.id">
+        </div>
+      </div>
+      <h4 class="title is-4 mt-6">Configurações</h4>
+      <div class="field">
+        <label class="label" for="color">Cor dos botões</label>
+        <div class="control">
+          <input id="color" class="input"
+            [style]="{ backgroundColor: selectedLinkTree.buttonColor }"
+            [(colorPicker)]="selectedLinkTree.buttonColor"
+            [cpOKButton]="true"
+            [cpSaveClickOutside]="false"
+            cpOKButtonClass= "button is-link is-fullwidth"
+            (colorPickerSelect)="saveButtonColor()">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="color">Cor do texto dos botões</label>
+        <div class="control">
+          <input id="color" class="input"
+            [style]="{ backgroundColor: selectedLinkTree.buttonTextColor }"
+            [(colorPicker)]="selectedLinkTree.buttonTextColor"
+            [cpOKButton]="true"
+            [cpSaveClickOutside]="false"
+            cpOKButtonClass= "button is-link is-fullwidth"
+            (colorPickerSelect)="saveButtonColor()">
+        </div>
+      </div>
+      <div class="mt-6">
+        <h4 class="title is-4">Adicione um novo link</h4>
+        <div class="field">
+          <label class="label" for="newLinkLabel">Texto do novo link</label>
+          <div class="control">
+            <input id="newLinkLabel" class="input" type="text" maxlength="50" [(ngModel)]="newLink.label">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="newLinkUrl">URL do novo link</label>
+          <div class="control">
+            <input id="newLinkUrl" class="input" type="url" [(ngModel)]="newLink.url">
+          </div>
+        </div>
+        <button (click)="addLink()"
+          class="button is-link is-fullwidth">
+          Adicionar link
+        </button>
+      </div>
+    </div>
+    <div class="column is-5 is-offset-1 has-text-centered mt-6">
+      <p class="title is-6 is-uppercase">{{ 'Preview' | translate }}</p>
+      <hr>
+      <div>
+        <h2 class="title is-3"
+          *ngIf="!edit.title.toggle"
+          (click)="editTitle()">
+          {{ selectedLinkTree.title }}
+        </h2>
+        <input #titleInput
+          type="text"
+          class="input input-edit-on-click title is-3"
+          *ngIf="edit.title.toggle"
+          [(ngModel)]="edit.title.newValue"
+          (blur)="saveTitle()"
+          (keyup.enter)="saveTitle()">
+      </div>
+      <br>
+      <div class="mb-6">
+        <p class="subtitle is-5"
+          *ngIf="!edit.description.toggle"
+          (click)="editDescription()">
+          {{ selectedLinkTree.description }}
+        </p>
+        <input #descriptionInput
+          type="text"
+          class="input input-edit-on-click subtitle is-5"
+          *ngIf="edit.description.toggle"
+          [(ngModel)]="edit.description.newValue"
+          (blur)="saveDescription()"
+          (keyup.enter)="saveDescription()">
+      </div>
+      <div class="link mb-5" *ngFor="let link of selectedLinkTree.links; let i = index">
+        <a [href]="link.url"
+          target="_blank"
+          class="button is-fullwidth"
+          [style.backgroundColor]="selectedLinkTree.buttonColor"
+          [style.color]="selectedLinkTree.buttonTextColor">
+          {{ link.label }}
+        </a>
+        <button (click)="deleteLink(i)" class="button is-danger delete-link-button">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
