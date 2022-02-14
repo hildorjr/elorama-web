@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     ) { }
 
   public ngOnInit(): void {
+    this.redirectIfUserIsLoggedIn();
   }
 
   public login(): void {
@@ -38,6 +39,12 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.alertService.openToast('error', 'loginError');
       });
+  }
+
+  public redirectIfUserIsLoggedIn() {
+    if (this.authService.userIsLoggedIn()) {
+      this.router.navigateByUrl('/app');
+    }
   }
 
 }

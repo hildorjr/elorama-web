@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
     ) { }
 
   public ngOnInit(): void {
+    this.redirectIfUserIsLoggedIn();
   }
 
   public register(): void {
@@ -40,6 +41,12 @@ export class RegisterComponent implements OnInit {
         this.loading = false;
         this.alertService.openToast('error', 'registerError');
       });
+  }
+
+  public redirectIfUserIsLoggedIn() {
+    if (this.authService.userIsLoggedIn()) {
+      this.router.navigateByUrl('/app');
+    }
   }
 
 }

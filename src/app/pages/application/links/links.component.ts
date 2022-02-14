@@ -6,6 +6,7 @@ import { LinkTree } from 'src/app/models/link-tree.model';
 import { LinkService } from 'src/app/services/link/link.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-links',
@@ -42,10 +43,10 @@ export class LinksComponent implements OnInit {
     },
   };
 
-  public newLink: any = {
-    label: '',
-    url: '',
-  };
+  public newLinkForm: FormGroup = new FormGroup({
+    label: new FormControl('', Validators.required),
+    url: new FormControl('', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
+  });
 
   public links: LinkTree[] = [];
 
@@ -148,13 +149,10 @@ export class LinksComponent implements OnInit {
   }
 
   public addLink(): void {
-    this.selectedLinkTree.links.push(this.newLink);
+    this.selectedLinkTree.links.push(this.newLinkForm.value);
     this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
       console.log('Button added saved');
-      this.newLink = {
-        label: '',
-        url: '',
-      };
+      this.newLinkForm.reset();
     }, (error: any) => {
       this.alertService.openToast('error', 'saveError');
     });
@@ -197,6 +195,8 @@ export class LinksComponent implements OnInit {
     const newLink: LinkTree = {
       title: this.translate.instant('newLinkTitle'),
       description: this.translate.instant('newLinkDescription'),
+      buttonColor: '#000000',
+      buttonTextColor: '#ffffff',
     };
     this.noteService.createLink(newLink).subscribe((note: LinkTree) => {
       this.selectedLinkTree = note;

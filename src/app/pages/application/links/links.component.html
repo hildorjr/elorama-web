@@ -70,56 +70,65 @@
   </div>
   <div class="columns is-multiline is-centered" *ngIf="selectedLinkTree.id">
     <div class="column is-5 mt-6">
-      <h4 class="title is-4">Seu link público</h4>
+      <h4 class="title is-4">{{ 'YourPublicLink' | translate }}</h4>
       <div class="field">
-        <label class="label" for="linkTreeUrl">URL para compartilhar</label>
+        <label class="label" for="linkTreeUrl">{{ 'URLToShare' | translate }}</label>
         <div class="control">
           <input id="linkTreeUrl" readonly class="input" [value]="routeHost + '/links/' + selectedLinkTree.id">
         </div>
       </div>
-      <h4 class="title is-4 mt-6">Configurações</h4>
+      <h4 class="title is-4 mt-6">{{ 'Configuration' | translate }}</h4>
       <div class="field">
-        <label class="label" for="color">Cor dos botões</label>
+        <label class="label" for="color">{{ 'ButtonColor' | translate }}</label>
         <div class="control">
           <input id="color" class="input"
             [style]="{ backgroundColor: selectedLinkTree.buttonColor }"
             [(colorPicker)]="selectedLinkTree.buttonColor"
             [cpOKButton]="true"
             [cpSaveClickOutside]="false"
-            cpOKButtonClass= "button is-link is-fullwidth"
+            cpOKButtonClass= "button is-link"
             (colorPickerSelect)="saveButtonColor()">
         </div>
       </div>
       <div class="field">
-        <label class="label" for="color">Cor do texto dos botões</label>
+        <label class="label" for="color">{{ 'ButtonTextColor' | translate }}</label>
         <div class="control">
           <input id="color" class="input"
             [style]="{ backgroundColor: selectedLinkTree.buttonTextColor }"
             [(colorPicker)]="selectedLinkTree.buttonTextColor"
             [cpOKButton]="true"
             [cpSaveClickOutside]="false"
-            cpOKButtonClass= "button is-link is-fullwidth"
+            cpOKButtonClass= "button is-link"
             (colorPickerSelect)="saveButtonColor()">
         </div>
       </div>
       <div class="mt-6">
-        <h4 class="title is-4">Adicione um novo link</h4>
-        <div class="field">
-          <label class="label" for="newLinkLabel">Texto do novo link</label>
-          <div class="control">
-            <input id="newLinkLabel" class="input" type="text" maxlength="50" [(ngModel)]="newLink.label">
+        <h4 class="title is-4">{{ 'AddANewLink' | translate }}</h4>
+        <form [formGroup]="newLinkForm" (ngSubmit)="addLink()">
+          <div class="field">
+            <label class="label" for="newLinkLabel">{{ 'TextOfTheNewLink' | translate }}</label>
+            <div class="control">
+              <input id="newLinkLabel" class="input" type="text" maxlength="50" formControlName="label" [class]="{ 'is-danger': newLinkForm.get('label').invalid && (newLinkForm.get('label').dirty || newLinkForm.get('label').touched) }">
+            </div>
+            <div class="help is-danger" *ngIf="newLinkForm.get('label').invalid && (newLinkForm.get('label').dirty || newLinkForm.get('label').touched)">
+              <p *ngIf="newLinkForm.get('label').errors?.required">{{ 'ProvideALabel' | translate }}</p>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label" for="newLinkUrl">URL do novo link</label>
-          <div class="control">
-            <input id="newLinkUrl" class="input" type="url" [(ngModel)]="newLink.url">
+          <div class="field">
+            <label class="label" for="newLinkUrl">{{ 'URLOfTheNewLink' | translate }}</label>
+            <div class="control">
+              <input id="newLinkUrl" class="input" type="url" formControlName="url" [class]="{ 'is-danger': newLinkForm.get('url').invalid && (newLinkForm.get('url').dirty || newLinkForm.get('url').touched) }">
+            </div>
+            <div class="help is-danger" *ngIf="newLinkForm.get('url').invalid && (newLinkForm.get('url').dirty || newLinkForm.get('url').touched)">
+              <p *ngIf="newLinkForm.get('url').errors?.required">{{ 'ProvideAURL' | translate }}</p>
+              <p *ngIf="newLinkForm.get('url').errors?.pattern">{{ 'ProvideAValidURL' | translate }}</p>
+            </div>
           </div>
-        </div>
-        <button (click)="addLink()"
-          class="button is-link is-fullwidth">
-          Adicionar link
-        </button>
+          <button type="submit" [disabled]="!newLinkForm.valid"
+            class="button is-link is-fullwidth">
+            {{ 'AddLink' | translate }}
+          </button>
+        </form>
       </div>
     </div>
     <div class="column is-5 is-offset-1 has-text-centered mt-6">

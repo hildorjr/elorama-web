@@ -63,5 +63,17 @@
   "Preview": "Preview",
   "GoBackToHome": "Back to home",
   "Welcome": "Welcome",
-  "ClickOnTheModuleYouWantToAccess": "Click on the module you want to access"
+  "ClickOnTheModuleYouWantToAccess": "Click on the module you want to access",
+  "YourPublicLink": "Your public link",
+  "URLToShare": "URL to share",
+  "Configuration": "Configuration",
+  "ButtonColor": "Button color",
+  "ButtonTextColor": "Button text color",
+  "AddANewLink": "Create new link",
+  "TextOfTheNewLink": "Text/Label",
+  "URLOfTheNewLink": "URL",
+  "AddLink": "Add link",
+  "ProvideALabel": "Provide a label",
+  "ProvideAURL": "Provide a URL",
+  "ProvideAValidURL": "Provide a valid URL"
 }

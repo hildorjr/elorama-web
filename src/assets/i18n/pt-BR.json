@@ -63,5 +63,17 @@
   "Preview": "Prévia",
   "GoBackToHome": "Voltar ao início",
   "Welcome": "Bem vindo",
-  "ClickOnTheModuleYouWantToAccess": "Clique no módulo que deseja acessar"
+  "ClickOnTheModuleYouWantToAccess": "Clique no módulo que deseja acessar",
+  "YourPublicLink": "Seu link público",
+  "URLToShare": "URL para compartilhar",
+  "Configuration": "Configurações",
+  "ButtonColor": "Cor dos botões",
+  "ButtonTextColor": "Cor do texto dos botões",
+  "AddANewLink": "Adicionar novo link",
+  "TextOfTheNewLink": "Texto do novo link",
+  "URLOfTheNewLink": "URL do novo link",
+  "AddLink": "Adicionar link",
+  "ProvideALabel": "Informe o texto do botão",
+  "ProvideAURL": "Informe a URL do botão",
+  "ProvideAValidURL": "Informe uma URL válida"
 }
