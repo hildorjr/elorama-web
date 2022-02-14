@@ -115,6 +115,8 @@ $sidebar-width: 300px;
   a {
     width: 85%;
     display: inline-block;
+    white-space: normal;
+    height: auto;
   }
   .delete-link-button {
     width: 15%;

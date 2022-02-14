@@ -14,7 +14,7 @@
         </p>
         <a *ngFor="let link of linkTree.links"
           [href]="link.url"
-          class="button is-medium is-fullwidth mb-5"
+          class="button is-fullwidth mb-5"
           [style.backgroundColor]="linkTree.buttonColor"
           [style.color]="linkTree.buttonTextColor">
           {{ link.label }}
