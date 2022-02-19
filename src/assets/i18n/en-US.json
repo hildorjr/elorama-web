@@ -49,8 +49,8 @@
   "Yes,exit": "Yes, exit",
   "newNoteTitle": "New Note",
   "newNoteContent": "You can edit this from anywhere at anytime.",
-  "newLinkTitle": "Click here to choose a title for your page",
-  "newLinkDescription": "Click here to write a description",
+  "newLinkTitle": "Title of the link page",
+  "newLinkDescription": "Subtitle of the link page",
   "Cancel": "Cancel",
   "emailInputHelp": "You must have access to this e-mail to confirm your account.",
   "passwordInputHelp": "Your password will be encrypted and stored safely.",
@@ -75,5 +75,8 @@
   "AddLink": "Add link",
   "ProvideALabel": "Provide a label",
   "ProvideAURL": "Provide a URL",
-  "ProvideAValidURL": "Provide a valid URL"
+  "ProvideAValidURL": "Provide a valid URL",
+  "linkCopied": "Link copied",
+  "Title": "Title",
+  "Subtitle": "Subtitle"
 }

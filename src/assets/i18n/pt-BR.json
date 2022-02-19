@@ -49,8 +49,8 @@
   "Yes,exit": "Sim, sair",
   "newNoteTitle": "Nova anotação",
   "newNoteContent": "Você pode edita-la de qualquer lugar a qualquer momento.",
-  "newLinkTitle": "Clique aqui para escolher um título",
-  "newLinkDescription": "Clique aqui para escolher uma descrição.",
+  "newLinkTitle": "Título da página de links",
+  "newLinkDescription": "Subtitulo da página de links.",
   "Cancel": "Cancelar",
   "emailInputHelp": "Você precisa ter acesso a este e-mail para confirmar sua conta.",
   "passwordInputHelp": "Sua senha será criptografada e armazenada em um local seguro.",
@@ -75,5 +75,8 @@
   "AddLink": "Adicionar link",
   "ProvideALabel": "Informe o texto do botão",
   "ProvideAURL": "Informe a URL do botão",
-  "ProvideAValidURL": "Informe uma URL válida"
+  "ProvideAValidURL": "Informe uma URL válida",
+  "linkCopied": "Link copiado",
+  "Title": "Título",
+  "Subtitle": "Subtítulo"
 }

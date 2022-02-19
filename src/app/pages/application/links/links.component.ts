@@ -32,17 +32,6 @@ export class LinksComponent implements OnInit {
     links: [],
   };
 
-  public edit: any = {
-    title: {
-      toggle: false,
-      newValue: '',
-    },
-    description: {
-      toggle: false,
-      newValue: '',
-    },
-  };
-
   public newLinkForm: FormGroup = new FormGroup({
     label: new FormControl('', Validators.required),
     url: new FormControl('', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
@@ -51,6 +40,8 @@ export class LinksComponent implements OnInit {
   public links: LinkTree[] = [];
 
   public sidebarToggle = true;
+
+  public typingTimeout: any;
 
   public constructor(
     private route: ActivatedRoute,
@@ -72,6 +63,27 @@ export class LinksComponent implements OnInit {
 
   public get routeHost(): string {
     return location.origin;
+  }
+
+  public get publicLink(): string {
+    return this.routeHost + '/links/' + this.selectedLinkTree.id;
+  }
+
+  public copyPublicLink(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    this.alertService.openToast('success', 'linkCopied')
+  }
+
+  public saveAfterTyping() {
+    if (this.typingTimeout) {
+      clearTimeout(this.typingTimeout);
+    }
+    this.typingTimeout = setTimeout(() => {
+      this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {}, (error: any) => {
+        this.alertService.openToast('error', 'saveError');
+      });
+    }, 2000)
   }
 
   public getUser(): void {
@@ -126,32 +138,9 @@ export class LinksComponent implements OnInit {
     }
   }
 
-  public editTitle(): void {
-    const t = this.edit.title;
-    t.toggle = true;
-    t.newValue = this.selectedLinkTree.title;
-    setTimeout(() => {
-      this.titleInputElement.nativeElement.focus();
-    });
-  }
-
-  public saveTitle(): void {
-    const t = this.edit.title;
-    t.toggle = false;
-    if (t.newValue.length > 0 && this.selectedLinkTree.title !== t.newValue) {
-      this.selectedLinkTree.title = t.newValue;
-      this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
-        console.log('Title saved');
-      }, (error: any) => {
-        this.alertService.openToast('error', 'saveError');
-      });
-    }
-  }
-
   public addLink(): void {
     this.selectedLinkTree.links.push(this.newLinkForm.value);
     this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
-      console.log('Button added saved');
       this.newLinkForm.reset();
     }, (error: any) => {
       this.alertService.openToast('error', 'saveError');
@@ -159,36 +148,10 @@ export class LinksComponent implements OnInit {
   }
 
   public saveButtonColor(): void {
-    this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
-      console.log('Color saved');
-    }, (error: any) => {
+    this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {},
+    (error: any) => {
       this.alertService.openToast('error', 'saveError');
     });
-  }
-
-  public editDescription(): void {
-    const c = this.edit.description;
-    c.toggle = true;
-    c.newValue = this.selectedLinkTree.description;
-    setTimeout(() => {
-      this.descriptionInputElement.nativeElement.focus();
-    });
-  }
-
-  public saveDescription(event: KeyboardEvent): void {
-    // tslint:disable-next-line: deprecation
-    if ((event?.metaKey && event?.keyCode === 13) || !event) {
-      const c = this.edit.description;
-      c.toggle = false;
-      if (c.newValue.length > 0 && this.selectedLinkTree.description !== c.newValue) {
-        this.selectedLinkTree.description = c.newValue;
-        this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
-          console.log('Title saved');
-        }, (error: any) => {
-          this.alertService.openToast('error', 'saveError');
-        });
-      }
-    }
   }
 
   public newLinkTree(): void {
@@ -213,9 +176,8 @@ export class LinksComponent implements OnInit {
       'Yes,delete',
       () => {
         this.selectedLinkTree.links.splice(linkIndex, 1);
-        this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
-          console.log('Link deleted');
-        }, (error: any) => {
+        this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {},
+        (error: any) => {
           this.alertService.openToast('error', 'deleteError');
         });
       }
@@ -229,7 +191,6 @@ export class LinksComponent implements OnInit {
       'Yes,delete',
       () => {
         this.noteService.deleteLink(this.selectedLinkTree).subscribe(() => {
-          console.log('Link deleted');
           this.links.splice(this.links.findIndex(x => x.id === note.id), 1);
           if (this.selectedLinkTree.id === note.id) {
             this.resetSelectedLink();

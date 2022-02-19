@@ -74,10 +74,22 @@
       <div class="field">
         <label class="label" for="linkTreeUrl">{{ 'URLToShare' | translate }}</label>
         <div class="control">
-          <input id="linkTreeUrl" readonly class="input" [value]="routeHost + '/links/' + selectedLinkTree.id">
+          <input id="linkTreeUrl" readonly class="input" [value]="publicLink" #userinput (click)="copyPublicLink(userinput)">
         </div>
       </div>
       <h4 class="title is-4 mt-6">{{ 'Configuration' | translate }}</h4>
+      <div class="field">
+        <label class="label" for="title">{{ 'Title' | translate }}</label>
+        <div class="control">
+          <input id="title" class="input" [(ngModel)]="selectedLinkTree.title" (keyup)="saveAfterTyping()">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="subtitle">{{ 'Subtitle' | translate }}</label>
+        <div class="control">
+          <input id="subtitle" class="input" [(ngModel)]="selectedLinkTree.description" (keyup)="saveAfterTyping()">
+        </div>
+      </div>
       <div class="field">
         <label class="label" for="color">{{ 'ButtonColor' | translate }}</label>
         <div class="control">
@@ -134,35 +146,12 @@
     <div class="column is-5 is-offset-1 has-text-centered mt-6">
       <p class="title is-6 is-uppercase">{{ 'Preview' | translate }}</p>
       <hr>
-      <div>
-        <h2 class="title is-3"
-          *ngIf="!edit.title.toggle"
-          (click)="editTitle()">
-          {{ selectedLinkTree.title }}
-        </h2>
-        <input #titleInput
-          type="text"
-          class="input input-edit-on-click title is-3"
-          *ngIf="edit.title.toggle"
-          [(ngModel)]="edit.title.newValue"
-          (blur)="saveTitle()"
-          (keyup.enter)="saveTitle()">
-      </div>
-      <br>
-      <div class="mb-6">
-        <p class="subtitle is-5"
-          *ngIf="!edit.description.toggle"
-          (click)="editDescription()">
-          {{ selectedLinkTree.description }}
-        </p>
-        <input #descriptionInput
-          type="text"
-          class="input input-edit-on-click subtitle is-5"
-          *ngIf="edit.description.toggle"
-          [(ngModel)]="edit.description.newValue"
-          (blur)="saveDescription()"
-          (keyup.enter)="saveDescription()">
-      </div>
+      <h2 class="title is-3 mb-6">
+        {{ selectedLinkTree.title }}
+      </h2>
+      <p class="subtitle is-5 mb-6">
+        {{ selectedLinkTree.description }}
+      </p>
       <div class="link mb-5" *ngFor="let link of selectedLinkTree.links; let i = index">
         <a [href]="link.url"
           target="_blank"
@@ -171,7 +160,7 @@
           [style.color]="selectedLinkTree.buttonTextColor">
           {{ link.label }}
         </a>
-        <button (click)="deleteLink(i)" class="button is-danger delete-link-button">
+        <button (click)="deleteLink(i)" class="button is-light delete-link-button">
           <i class="fas fa-trash"></i>
         </button>
       </div>
