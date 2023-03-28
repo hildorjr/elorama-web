@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://salvae-api.herokuapp.com'
+  apiUrl: 'https://elorama-api.up.railway.app'
 };
