@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+  HttpClient,
+} from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +22,10 @@ import { LanguageSwitchComponent } from './components/language-switch/language-s
 import { HomeComponent } from './pages/home/home.component';
 import { LinksComponent } from './pages/application/links/links.component';
 import { LinkTreeComponent } from './pages/link-tree/link-tree.component';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
+import { environment } from '../environments/environment';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -42,21 +49,23 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LoadingBarHttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAnalytics(() => getAnalytics()),
     ColorPickerModule,
+    LoadingBarHttpClientModule,
     MarkdownModule.forRoot(),
     TranslateModule.forRoot({
       defaultLanguage: 'en-US',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
