@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormBuilder } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
@@ -12,11 +12,11 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 export class RegisterComponent implements OnInit {
 
   public loading: boolean;
-  public registerForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-    terms: new FormControl('', Validators.required),
+  public registerForm: UntypedFormGroup = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    password: new UntypedFormControl('', Validators.required),
+    terms: new UntypedFormControl('', Validators.required),
   });
 
   public constructor(

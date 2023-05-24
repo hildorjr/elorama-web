@@ -6,7 +6,7 @@ import { LinkTree } from 'src/app/models/link-tree.model';
 import { LinkService } from 'src/app/services/link/link.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-links',
@@ -32,9 +32,9 @@ export class LinksComponent implements OnInit {
     links: [],
   };
 
-  public newLinkForm: FormGroup = new FormGroup({
-    label: new FormControl('', Validators.required),
-    url: new FormControl('', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
+  public newLinkForm: UntypedFormGroup = new UntypedFormGroup({
+    label: new UntypedFormControl('', Validators.required),
+    url: new UntypedFormControl('', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
   });
 
   public links: LinkTree[] = [];
