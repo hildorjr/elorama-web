@@ -6,14 +6,14 @@ import { Note } from 'src/app/models/note.model';
 import { NoteService } from 'src/app/services/note/note.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+  styleUrls: ['./notes.component.scss'],
 })
 export class NotesComponent implements OnInit {
-
   @ViewChild('titleInput') titleInputElement: ElementRef;
   @ViewChild('contentInput') contentInputElement: ElementRef;
 
@@ -50,7 +50,8 @@ export class NotesComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private translate: TranslateService,
-  ) { }
+    private analytics: AnalyticsService
+  ) {}
 
   public ngOnInit(): void {
     if (!this.authService.userIsLoggedIn()) {
@@ -59,6 +60,7 @@ export class NotesComponent implements OnInit {
       this.getUser();
       this.getNotes();
     }
+    this.analytics.logScreenViewEvent('Notes Page');
   }
 
   public getUser(): void {
@@ -68,24 +70,30 @@ export class NotesComponent implements OnInit {
   }
 
   public getNotes(): void {
-    this.noteService.getNotes().subscribe((data: any) => {
-      this.notes = data;
-      this.checkUrlForSelectedNote();
-    }, (error: any) => {
-      this.alertService.openToast('error', 'getError');
-    });
+    this.noteService.getNotes().subscribe(
+      (data: any) => {
+        this.notes = data;
+        this.checkUrlForSelectedNote();
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'getError');
+      }
+    );
   }
 
   public selectNote(note: Note): void {
-    this.noteService.getNote(note.id).subscribe((data: any) => {
-      this.selectedNote = data;
-      this.notes[this.notes.findIndex(x => x.id === note.id)] = data;
-    }, (error: any) => {
-      this.alertService.openToast('error', 'getError');
-    });
+    this.noteService.getNote(note.id).subscribe(
+      (data: any) => {
+        this.selectedNote = data;
+        this.notes[this.notes.findIndex((x) => x.id === note.id)] = data;
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'getError');
+      }
+    );
     this.router.navigate([], {
       queryParams: {
-        note: note.id
+        note: note.id,
       },
       queryParamsHandling: 'merge',
     });
@@ -103,7 +111,7 @@ export class NotesComponent implements OnInit {
   public checkUrlForSelectedNote(): void {
     const noteId = this.route.snapshot.queryParams.note;
     if (noteId) {
-      const currentNote = this.notes.find(x => x.id === noteId);
+      const currentNote = this.notes.find((x) => x.id === noteId);
       if (currentNote) {
         this.selectNote(currentNote);
       }
@@ -124,11 +132,14 @@ export class NotesComponent implements OnInit {
     t.toggle = false;
     if (t.newValue.length > 0 && this.selectedNote.title !== t.newValue) {
       this.selectedNote.title = t.newValue;
-      this.noteService.saveNote(this.selectedNote).subscribe(() => {
-        console.log('Title saved');
-      }, (error: any) => {
-        this.alertService.openToast('error', 'saveError');
-      });
+      this.noteService.saveNote(this.selectedNote).subscribe(
+        () => {
+          console.log('Title saved');
+        },
+        (error: any) => {
+          this.alertService.openToast('error', 'saveError');
+        }
+      );
     }
   }
 
@@ -148,11 +159,14 @@ export class NotesComponent implements OnInit {
       c.toggle = false;
       if (c.newValue.length > 0 && this.selectedNote.content !== c.newValue) {
         this.selectedNote.content = c.newValue;
-        this.noteService.saveNote(this.selectedNote).subscribe(() => {
-          console.log('Title saved');
-        }, (error: any) => {
-          this.alertService.openToast('error', 'saveError');
-        });
+        this.noteService.saveNote(this.selectedNote).subscribe(
+          () => {
+            console.log('Title saved');
+          },
+          (error: any) => {
+            this.alertService.openToast('error', 'saveError');
+          }
+        );
       }
     }
   }
@@ -162,12 +176,15 @@ export class NotesComponent implements OnInit {
       title: this.translate.instant('newNoteTitle'),
       content: this.translate.instant('newNoteContent'),
     };
-    this.noteService.createNote(newNote).subscribe((note: Note) => {
-      this.selectedNote = note;
-      this.notes.push(note);
-    }, (error: any) => {
-      this.alertService.openToast('error', 'createError');
-    });
+    this.noteService.createNote(newNote).subscribe(
+      (note: Note) => {
+        this.selectedNote = note;
+        this.notes.push(note);
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'createError');
+      }
+    );
   }
 
   public deleteNote(note: Note): void {
@@ -176,15 +193,21 @@ export class NotesComponent implements OnInit {
       'ThisActionCannotBeReverted',
       'Yes,delete',
       () => {
-        this.noteService.deleteNote(this.selectedNote).subscribe(() => {
-          console.log('Note deleted');
-          this.notes.splice(this.notes.findIndex(x => x.id === note.id), 1);
-          if (this.selectedNote.id === note.id) {
-            this.resetSelectedNote();
+        this.noteService.deleteNote(this.selectedNote).subscribe(
+          () => {
+            console.log('Note deleted');
+            this.notes.splice(
+              this.notes.findIndex((x) => x.id === note.id),
+              1
+            );
+            if (this.selectedNote.id === note.id) {
+              this.resetSelectedNote();
+            }
+          },
+          (error: any) => {
+            this.alertService.openToast('error', 'deleteError');
           }
-        }, (error: any) => {
-          this.alertService.openToast('error', 'deleteError');
-        });
+        );
       }
     );
   }
@@ -207,5 +230,4 @@ export class NotesComponent implements OnInit {
       this.sidebarToggle = !this.sidebarToggle;
     }
   }
-
 }

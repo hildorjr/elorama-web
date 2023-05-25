@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost',
+  apiUrl: 'https://elorama-api.up.railway.app',
   firebase: {
     apiKey: 'AIzaSyAldWVtYg9TWfT0jOpdZBNEA1AjkAazkOs',
     authDomain: 'elorama-b74de.firebaseapp.com',

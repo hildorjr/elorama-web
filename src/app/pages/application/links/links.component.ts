@@ -6,15 +6,19 @@ import { LinkTree } from 'src/app/models/link-tree.model';
 import { LinkService } from 'src/app/services/link/link.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-links',
   templateUrl: './links.component.html',
-  styleUrls: ['./links.component.scss']
+  styleUrls: ['./links.component.scss'],
 })
 export class LinksComponent implements OnInit {
-
   @ViewChild('titleInput') titleInputElement: ElementRef;
   @ViewChild('descriptionInput') descriptionInputElement: ElementRef;
 
@@ -34,7 +38,12 @@ export class LinksComponent implements OnInit {
 
   public newLinkForm: UntypedFormGroup = new UntypedFormGroup({
     label: new UntypedFormControl('', Validators.required),
-    url: new UntypedFormControl('', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
+    url: new UntypedFormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+      ),
+    ]),
   });
 
   public links: LinkTree[] = [];
@@ -50,7 +59,8 @@ export class LinksComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private translate: TranslateService,
-  ) { }
+    private analytics: AnalyticsService
+  ) {}
 
   public ngOnInit(): void {
     if (!this.authService.userIsLoggedIn()) {
@@ -58,6 +68,7 @@ export class LinksComponent implements OnInit {
     } else {
       this.getUser();
       this.getLinks();
+      this.analytics.logScreenViewEvent('Links Page');
     }
   }
 
@@ -69,10 +80,10 @@ export class LinksComponent implements OnInit {
     return this.routeHost + '/links/' + this.selectedLinkTree.id;
   }
 
-  public copyPublicLink(inputElement){
+  public copyPublicLink(inputElement) {
     inputElement.select();
     document.execCommand('copy');
-    this.alertService.openToast('success', 'linkCopied')
+    this.alertService.openToast('success', 'linkCopied');
   }
 
   public saveAfterTyping() {
@@ -80,10 +91,13 @@ export class LinksComponent implements OnInit {
       clearTimeout(this.typingTimeout);
     }
     this.typingTimeout = setTimeout(() => {
-      this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {}, (error: any) => {
-        this.alertService.openToast('error', 'saveError');
-      });
-    }, 2000)
+      this.noteService.saveLink(this.selectedLinkTree).subscribe(
+        () => {},
+        (error: any) => {
+          this.alertService.openToast('error', 'saveError');
+        }
+      );
+    }, 2000);
   }
 
   public getUser(): void {
@@ -93,24 +107,30 @@ export class LinksComponent implements OnInit {
   }
 
   public getLinks(): void {
-    this.noteService.getLinks().subscribe((data: any) => {
-      this.links = data;
-      this.checkUrlForSelectedLink();
-    }, (error: any) => {
-      this.alertService.openToast('error', 'getError');
-    });
+    this.noteService.getLinks().subscribe(
+      (data: any) => {
+        this.links = data;
+        this.checkUrlForSelectedLink();
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'getError');
+      }
+    );
   }
 
   public selectLink(note: LinkTree): void {
-    this.noteService.getLink(note.id).subscribe((data: any) => {
-      this.selectedLinkTree = data;
-      this.links[this.links.findIndex(x => x.id === note.id)] = data;
-    }, (error: any) => {
-      this.alertService.openToast('error', 'getError');
-    });
+    this.noteService.getLink(note.id).subscribe(
+      (data: any) => {
+        this.selectedLinkTree = data;
+        this.links[this.links.findIndex((x) => x.id === note.id)] = data;
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'getError');
+      }
+    );
     this.router.navigate([], {
       queryParams: {
-        note: note.id
+        note: note.id,
       },
       queryParamsHandling: 'merge',
     });
@@ -131,7 +151,7 @@ export class LinksComponent implements OnInit {
   public checkUrlForSelectedLink(): void {
     const noteId = this.route.snapshot.queryParams.note;
     if (noteId) {
-      const currentLink = this.links.find(x => x.id === noteId);
+      const currentLink = this.links.find((x) => x.id === noteId);
       if (currentLink) {
         this.selectLink(currentLink);
       }
@@ -140,18 +160,23 @@ export class LinksComponent implements OnInit {
 
   public addLink(): void {
     this.selectedLinkTree.links.push(this.newLinkForm.value);
-    this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {
-      this.newLinkForm.reset();
-    }, (error: any) => {
-      this.alertService.openToast('error', 'saveError');
-    });
+    this.noteService.saveLink(this.selectedLinkTree).subscribe(
+      () => {
+        this.newLinkForm.reset();
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'saveError');
+      }
+    );
   }
 
   public saveButtonColor(): void {
-    this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {},
-    (error: any) => {
-      this.alertService.openToast('error', 'saveError');
-    });
+    this.noteService.saveLink(this.selectedLinkTree).subscribe(
+      () => {},
+      (error: any) => {
+        this.alertService.openToast('error', 'saveError');
+      }
+    );
   }
 
   public newLinkTree(): void {
@@ -161,12 +186,15 @@ export class LinksComponent implements OnInit {
       buttonColor: '#000000',
       buttonTextColor: '#ffffff',
     };
-    this.noteService.createLink(newLink).subscribe((note: LinkTree) => {
-      this.selectedLinkTree = note;
-      this.links.push(note);
-    }, (error: any) => {
-      this.alertService.openToast('error', 'createError');
-    });
+    this.noteService.createLink(newLink).subscribe(
+      (note: LinkTree) => {
+        this.selectedLinkTree = note;
+        this.links.push(note);
+      },
+      (error: any) => {
+        this.alertService.openToast('error', 'createError');
+      }
+    );
   }
 
   public deleteLink(linkIndex: number): void {
@@ -176,10 +204,12 @@ export class LinksComponent implements OnInit {
       'Yes,delete',
       () => {
         this.selectedLinkTree.links.splice(linkIndex, 1);
-        this.noteService.saveLink(this.selectedLinkTree).subscribe(() => {},
-        (error: any) => {
-          this.alertService.openToast('error', 'deleteError');
-        });
+        this.noteService.saveLink(this.selectedLinkTree).subscribe(
+          () => {},
+          (error: any) => {
+            this.alertService.openToast('error', 'deleteError');
+          }
+        );
       }
     );
   }
@@ -190,14 +220,20 @@ export class LinksComponent implements OnInit {
       'ThisActionCannotBeReverted',
       'Yes,delete',
       () => {
-        this.noteService.deleteLink(this.selectedLinkTree).subscribe(() => {
-          this.links.splice(this.links.findIndex(x => x.id === note.id), 1);
-          if (this.selectedLinkTree.id === note.id) {
-            this.resetSelectedLink();
+        this.noteService.deleteLink(this.selectedLinkTree).subscribe(
+          () => {
+            this.links.splice(
+              this.links.findIndex((x) => x.id === note.id),
+              1
+            );
+            if (this.selectedLinkTree.id === note.id) {
+              this.resetSelectedLink();
+            }
+          },
+          (error: any) => {
+            this.alertService.openToast('error', 'deleteError');
           }
-        }, (error: any) => {
-          this.alertService.openToast('error', 'deleteError');
-        });
+        );
       }
     );
   }
@@ -220,5 +256,4 @@ export class LinksComponent implements OnInit {
       this.sidebarToggle = !this.sidebarToggle;
     }
   }
-
 }

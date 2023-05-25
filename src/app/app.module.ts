@@ -23,8 +23,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { LinksComponent } from './pages/application/links/links.component';
 import { LinkTreeComponent } from './pages/link-tree/link-tree.component';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { environment } from '../environments/environment';
+import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
