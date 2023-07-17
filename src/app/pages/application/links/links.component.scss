@@ -35,6 +35,7 @@ $sidebar-width: 300px;
   left: 0;
   top: 0;
   height: 100vh;
+  overflow-y: auto;
   width: $sidebar-width;
   padding: 20px;
   transition: .4s;
@@ -44,8 +45,9 @@ $sidebar-width: 300px;
     background-color: #e5e5e5;
   }
   .menu-container {
-    overflow-y: auto;
-    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .user {
     .user-image {
@@ -83,12 +85,6 @@ $sidebar-width: 300px;
       color: #aaa;
       margin-right: 5px;
     }
-  }
-  .menu-bottom-section {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 0;
   }
 }
 .current-link {
